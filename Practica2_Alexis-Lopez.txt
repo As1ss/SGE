@@ -1,0 +1,33 @@
+select  
+	re.name as customer,
+	pt.name->>'es_ES' as product,
+	pa.name->>'es_ES' as attribute,
+	pav.name->>'es_ES' as value,
+	count(pav.id) as total_qty
+from
+	res_partner re,
+	product_template pt,
+	pos_order_line pol,
+	pos_order po ,
+	product_attribute pa,
+	product_attribute_value pav,
+	product_product pp,
+	product_template_attribute_line ptal
+where
+	po.partner_id = re.id
+	and po.partner_id is not null
+	and
+po.id = pol.order_id
+	and
+pp.id = pol.product_id
+	and
+pt.id = pp.product_tmpl_id
+	and 
+ptal.product_tmpl_id = pt.id
+group by
+	re.name,
+	pt.name,
+	pa."name",
+	pav."name"
+order by
+	re."name" desc 
