@@ -160,3 +160,51 @@ from
 where
 	pp.product_tmpl_id = pt.id
 	and pp.id != pol.product_id
+
+/*
+ * Ejercicio 9: Valor Total de Facturas por Cliente
+Descripción: Calcula el valor total de todas las facturas por cliente.
+
+Instrucción:
+Escribe una consulta SQL que muestre el nombre del cliente y el valor total acumulado de sus facturas.
+ */
+
+
+select
+	am.invoice_partner_display_name as partner_name,
+	sum(am.amount_total) as total_invoices_qty
+from
+	account_move am,
+	res_partner rp
+where
+	rp.id = am.partner_id
+group by
+	am.invoice_partner_display_name
+
+
+/*
+Ejercicio 10: Productos con Más Variantes Vendidas en Punto de Venta
+Descripción: Determina qué producto ha tenido más variantes vendidas en el Punto de Venta.
+
+Instrucción:
+Escribe una consulta SQL que muestre el nombre del producto y el número de sus distintas variantes 
+que se han vendido a través del Punto de Venta.
+
+*/
+
+
+
+select
+	pt."name"->>'es_ES' as product_name,
+	count(distinct pp.id) as quantity_variants_sold
+from
+	pos_order_line pol,
+	product_template pt ,
+	product_product pp
+where
+	pp.product_tmpl_id = pt.id
+	and pol.product_id = pp.id
+group by 
+	pt."name"
+order by count(distinct pp.id) desc
+limit 1
