@@ -46,7 +46,7 @@ Escribe una consulta SQL que muestre el nombre del cliente y el total de órdene
 
 select
 	re.name as nombre,
-	count(po.partner_id) as total_ordenes
+	count(po.id) as total_ordenes
 from
 	pos_order po,
 	res_partner re
@@ -63,15 +63,20 @@ Instrucción:
 Escribe una consulta SQL que muestre el nombre del producto más vendido y la cantidad total vendida de ese producto a través de las transacciones PoS.
 */
 
+
 select
-	pol.full_product_name,
-	pol.price_subtotal_incl,
+	pt.name->>'es_ES' as product_name,
 	sum(qty)
 from
-	pos_order_line pol
+	pos_order_line pol ,
+	product_template pt ,
+	product_product pp
+where 
+	pt.id = pp.product_tmpl_id
+	and
+	pol.product_id = pp.id
 group by
-	pol.full_product_name,
-	pol.price_subtotal_incl
+	pt."name"
 order by
 	sum(qty) desc
 
@@ -84,9 +89,10 @@ Escribe una consulta SQL que muestre el nombre del proveedor y el número total 
 */
 
 
-select
+select 
 	rp."name" as provider_name,
-	count(po.partner_id) as total_orders
+	count(po.partner_id) as total_orders,
+	sum(po.amount_total)as total_qty
 from
 	res_partner rp ,
 	purchase_order po
