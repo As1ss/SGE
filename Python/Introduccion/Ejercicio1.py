@@ -51,6 +51,24 @@ Escribir un programa que pida al usuario dos números enteros y muestre por pant
 """
 
 
+"Escribir un progrmar que pida al usuario un numero entero y muestre por pantalla un triangulo rectangulo como el de mas abajo, de altura el numero introducido."
+
+"""
+
+1
+2 1
+3 2 1
+4 3 2 1
+5 4 3 2 1
+
+"""
 
 
+altura = input(int("Introduce la altura"))
 
+def triangulo(altura):
+    if (altura>3):
+        for i in range(1,altura):
+            print(i)
+
+triangulo(altura)
