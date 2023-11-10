@@ -34,6 +34,7 @@ while True:
         fruta = input("Introduce el nombre de la fruta.")
         precio = float(input("Introduce el precio de la fruta."))
         frutas[fruta] = precio
+        
        
 
       
