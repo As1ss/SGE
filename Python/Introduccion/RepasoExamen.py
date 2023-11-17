@@ -341,3 +341,38 @@ while(salir):
             print("Esa fruta no existe compa")
     if (opcion==4):
         salir=False
+
+"""
+
+Ejercicio 4
+Escribir un programa que pregunte una fecha en formato dd/mm/aaaa y muestre por pantalla la misma fecha
+ en formato dd de <mes> de aaaa donde <mes> es el nombre del mes.
+
+"""
+
+fecha = input("Introduce una fecha en formato dd/mm/aaaa: ")
+
+
+
+meses = {"01":"Enero","02":"Febrero","03":"Marzo","04":"Abril","05":"Mayo","06":"Junio",
+         "07":"Julio","08":"Agosto","09":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"}
+
+
+
+
+
+
+
+
+
+
+
+
+dia = fecha[0:2]
+mes = fecha[3:5]
+año = fecha[6:10]
+
+print(f"{dia} de {meses[str(mes)]} de {año}")
+
+
+
